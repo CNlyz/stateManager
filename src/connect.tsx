@@ -9,28 +9,28 @@ export function getConnector<RootState>(rootState: new () => RootState) {
     if (_RootState === null) {
         _RootState = new rootState();
     }
-    return function connect<ConnectedProps, OuterProps>(
+    return function connect<ConnectedProps, ComponentProps>(
         getState: (rootState: RootState) => ConnectedProps,
-        Component: ComponentType<ConnectedProps & OuterProps>
+        Component: ComponentType<ComponentProps>
     ) {
-        return class ConnectedComponent extends React.Component<OuterProps> {
-            private removeDeps: () => void;
+        return class ConnectedComponent extends React.Component<Omit<ComponentProps, keyof ConnectedProps>> {
+            private _removeDeps?: () => void = undefined;
 
             private trigger = () => {
                 this.forceUpdate();
             }
 
             componentWillMount() {
-                this.removeDeps = collectDeps(() => getState(_RootState), this.trigger);
+                this._removeDeps = collectDeps(() => getState(_RootState), this.trigger);
             }
 
             componentWillUnmount() {
-                this.removeDeps();
+                this._removeDeps?.();
             }
 
             render() {
                 const connectedProps = getState(_RootState);
-                return <Component {...connectedProps} {...this.props} />;
+                return <Component {...connectedProps} {...this.props as any} />;
             }
         };
     };

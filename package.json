@@ -1,26 +1,27 @@
 {
   "name": "statemanager",
   "version": "1.0.0",
-  "description": "# 待完善: _DEPSMAP的key需要唯一性约束",
-  "main": "index.js",
+  "description": "A LightWeight JavaScript State Manager",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "release": "tsc && npm publish"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/CNlyz/stateManager.git"
   },
-  "author": "CNlyz",
+  "author": "lyz",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/CNlyz/stateManager/issues"
   },
   "homepage": "https://github.com/CNlyz/stateManager#readme",
-  "dependencies": {
-    "typescript": "^3.8.0"
-  },
   "devDependencies": {
     "@types/react": "^16.8.0s",
-    "react": "^16.8.0"
+    "react": "^16.8.0",
+    "typescript": "^3.8.0"
   }
 }

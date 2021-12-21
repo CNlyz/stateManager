@@ -1,8 +1,8 @@
 import BaseRootState from './BaseRootState';
-import { getUseStateManager } from '../connect';
+import { getUseStateManager, getConnector } from '../connect';
 
 class Person {
-    name: string;
+    name: string = '';
 }
 
 export default class State extends BaseRootState<Person> {
@@ -12,3 +12,5 @@ export default class State extends BaseRootState<Person> {
 }
 
 export const useStateManager = getUseStateManager(State);
+
+export const connect = getConnector(State);

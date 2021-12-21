@@ -61,6 +61,6 @@ react@^16.8.0:
     prop-types "^15.6.2"
 
 typescript@^3.8.0:
-  version "3.9.7"
-  resolved "http://npm-registry.qunhequnhe.com/typescript/download/typescript-3.9.7.tgz#98d600a5ebdc38f40cb277522f12dc800e9e25fa"
-  integrity sha1-mNYApevcOPQMsndSLxLcgA6eJfo=
+  version "3.9.10"
+  resolved "http://npm-registry.qunhequnhe.com/typescript/download/typescript-3.9.10.tgz#70f3910ac7a51ed6bef79da7800690b19bf778b8"
+  integrity sha1-cPORCselHta+952ngAaQsZv3eLg=
