@@ -36,8 +36,8 @@ export function getConnector<RootState>(rootState: new () => RootState) {
     };
 }
 
-// for function component, better choice
-export function getUseAutoRun<RootState>(rootState: new () => RootState) {
+// only for function component
+export function getUseStateManager<RootState>(rootState: new () => RootState) {
     if (_RootState === null) {
         _RootState = new rootState();
     }

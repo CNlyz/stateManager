@@ -17,10 +17,10 @@
   },
   "homepage": "https://github.com/CNlyz/stateManager#readme",
   "dependencies": {
-    "react": "^16.8.0",
     "typescript": "^3.8.0"
   },
   "devDependencies": {
-    "@types/react": "^16.8.0s"
+    "@types/react": "^16.8.0s",
+    "react": "^16.8.0"
   }
 }
