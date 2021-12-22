@@ -18,7 +18,7 @@ export function PersonInfo(props: { name: string, age: number, height: number })
 
 const Connected = connect(root => ({
     name: root.state.name,
-    height: 0
+    height: 0,
 }), PersonInfo);
 
 function Test() {

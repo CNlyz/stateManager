@@ -9,10 +9,10 @@ export function getConnector<RootState>(rootState: new () => RootState) {
     if (_RootState === null) {
         _RootState = new rootState();
     }
-    return function connect<ConnectedProps, ComponentProps>(
+    return function connect<ComponentProps, ConnectedProps = Partial<ComponentProps>>(
         getState: (rootState: RootState) => ConnectedProps,
         Component: ComponentType<ComponentProps>
-    ) {
+    ): ComponentType<Omit<ComponentProps, keyof ConnectedProps>> {
         return class ConnectedComponent extends React.Component<Omit<ComponentProps, keyof ConnectedProps>> {
             private _removeDeps?: () => void = undefined;
 
