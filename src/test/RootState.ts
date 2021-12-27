@@ -5,12 +5,12 @@ class Person {
     name: string = '';
 }
 
-export default class State extends BaseRootState<Person> {
+export default class RootState extends BaseRootState<Person> {
     protected initialState(): Person {
         return new Person();
     }
 }
 
-export const useStateManager = getUseStateManager(State);
+export const useStateManager = getUseStateManager(RootState);
 
-export const connect = getConnector(State);
+export const connect = getConnector(RootState);

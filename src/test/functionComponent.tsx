@@ -1,5 +1,5 @@
 import React from 'react';
-import { useStateManager, connect } from './state';
+import { useStateManager } from './RootState';
 
 export function PersonInfo(props: { name: string, age: number, height: number }) {
     const { name, dispatch } = useStateManager(root => ({
@@ -14,13 +14,4 @@ export function PersonInfo(props: { name: string, age: number, height: number })
     return (
         <div onClick={onClickToChangeName}>{name}</div>
     );
-}
-
-const Connected = connect(root => ({
-    name: root.state.name,
-    height: 0,
-}), PersonInfo);
-
-function Test() {
-    return (<Connected age={0} />);
 }
