@@ -1,0 +1,5 @@
+src
+*.log
+*.lock
+tsconfig.json
+index.ts

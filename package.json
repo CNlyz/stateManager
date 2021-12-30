@@ -1,6 +1,6 @@
 {
-  "name": "xfy",
-  "version": "0.0.1",
+  "name": "xfi",
+  "version": "0.0.1-alpha.2",
   "description": "A LightWeight JavaScript State Manager",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -13,14 +13,14 @@
     "type": "git",
     "url": "git+https://github.com/CNlyz/stateManager.git"
   },
-  "author": "mobei",
+  "author": "lyz",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/CNlyz/stateManager/issues"
   },
   "homepage": "https://github.com/CNlyz/stateManager#readme",
   "devDependencies": {
-    "@types/react": "^16.8.0s",
+    "@types/react": "^16.8.0",
     "react": "^16.8.0",
     "typescript": "^3.8.0"
   }
