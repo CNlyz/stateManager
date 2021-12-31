@@ -2,6 +2,10 @@ import { Updater, Key } from './interface';
 
 let currentUpdater: Updater | null = null;
 
+let removeDeps = (key: string, updater: () => void) => {
+    //
+};
+
 export function observe<T extends Object>(data: T) {
     /**
      * state => updater, 用于保存状态与依赖此状态的更新处理函数
@@ -73,7 +77,3 @@ export function collectDeps<T extends Object>(fn: () => T, updater: () => void) 
     currentUpdater = null;
     return () => Object.keys(props).forEach(key => removeDeps(key, updater));
 }
-
-let removeDeps = (key: string, updater: () => void) => {
-    //
-};

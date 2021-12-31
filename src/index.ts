@@ -1,2 +1,2 @@
 export { observe } from './observe';
-export { getUseStateManager, getConnector } from './connect';
+export { getUseStateManager, getConnector } from './xfi-react';
