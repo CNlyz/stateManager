@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { collectDeps } from './observe';
-import { ComponentType } from './interface';
+import { collectDeps } from '../observe';
+import { ComponentType } from '../interface';
 
 let _RootState: any = null;
 
@@ -43,9 +43,9 @@ export function getUseStateManager<RootState>(rootState: new () => RootState) {
     }
     return function <T extends Object>(getState: (rootState: RootState) => T) {
         const fn = () => getState(_RootState);
-        const [, setK] = useState(Symbol(0));
+        const [, update] = useState(Symbol(0));
         useEffect(() => {
-            const removeDeps = collectDeps(fn, () => setK(Symbol(0)));
+            const removeDeps = collectDeps(fn, () => update(Symbol(0)));
             return () => removeDeps();
         }, []);
         return fn();

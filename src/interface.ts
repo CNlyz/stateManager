@@ -6,7 +6,7 @@ interface ConstructorOf<T> {
 
 type ComponentType<T> = ConstructorOf<React.Component<T>> | ((props: T) => JSX.Element);
 
-type Key = string | number | symbol;
+type Key = string | symbol;
 
 export {
     Updater,
