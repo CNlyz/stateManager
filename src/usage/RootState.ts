@@ -1,5 +1,5 @@
 import BaseRootState from './BaseRootState';
-import { getUseStateManager, getConnector } from '../connect';
+import { getUseStateManager, getConnector } from '../index';
 
 class Person {
     name: string = '';
