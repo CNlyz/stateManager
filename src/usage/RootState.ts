@@ -11,6 +11,8 @@ export default class RootState extends BaseRootState<Person> {
     }
 }
 
-export const useStateManager = getUseStateManager(RootState);
+const rootState = new RootState();
 
-export const connect = getConnector(RootState);
+export const useStateManager = getUseStateManager(rootState);
+
+export const connect = getConnector(rootState);

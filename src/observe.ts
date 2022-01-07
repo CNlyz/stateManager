@@ -71,10 +71,12 @@ export function collectDeps<T extends Object>(getUpdaterMapKeys: () => T, update
     shouldRemoveDeps = false;
     getUpdaterMapKeys();
     currentUpdater = null;
-    return () => {
+
+    const removeDeps = () => {
         currentUpdater = updater;
         shouldRemoveDeps = true;
         getUpdaterMapKeys();
         currentUpdater = null;
     }
+    return removeDeps;
 }

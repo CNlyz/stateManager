@@ -2,13 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { collectDeps } from '../observe';
 import { ComponentType } from '../interface';
 
-let _RootState: any = null;
-
 // for class component or function component
-export function getConnector<RootState>(rootState: new () => RootState) {
-    if (_RootState === null) {
-        _RootState = new rootState();
-    }
+export function getConnector<RootState>(rootState: RootState) {
     return function connect<ComponentProps, ConnectedProps = Partial<ComponentProps>>(
         getState: (rootState: RootState) => ConnectedProps,
         Component: ComponentType<ComponentProps>
@@ -21,7 +16,7 @@ export function getConnector<RootState>(rootState: new () => RootState) {
             }
 
             componentWillMount() {
-                this._removeDeps = collectDeps(() => getState(_RootState), this.trigger);
+                this._removeDeps = collectDeps(() => getState(rootState), this.trigger);
             }
 
             componentWillUnmount() {
@@ -29,7 +24,7 @@ export function getConnector<RootState>(rootState: new () => RootState) {
             }
 
             render() {
-                const connectedProps = getState(_RootState);
+                const connectedProps = getState(rootState);
                 return <Component {...connectedProps} {...this.props as any} />;
             }
         };
@@ -37,12 +32,9 @@ export function getConnector<RootState>(rootState: new () => RootState) {
 }
 
 // only for function component
-export function getUseStateManager<RootState>(rootState: new () => RootState) {
-    if (_RootState === null) {
-        _RootState = new rootState();
-    }
+export function getUseStateManager<RootState extends Object>(rootState: RootState) {
     return function <T extends Object>(getState: (rootState: RootState) => T) {
-        const fn = () => getState(_RootState);
+        const fn = () => getState(rootState);
         const [, update] = useState(Symbol(0));
         useEffect(() => {
             const removeDeps = collectDeps(fn, () => update(Symbol(0)));
