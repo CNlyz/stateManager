@@ -1,6 +1,6 @@
 import { observe } from '../observe';
 
-export default abstract class BaseRootState<State extends Object = {}> {
+export abstract class BaseState<State extends Object = {}> {
     readonly state: State;
 
     constructor() {
@@ -21,10 +21,10 @@ export default abstract class BaseRootState<State extends Object = {}> {
         });
     }
 
-    dispose = () => {
+    dispose() {
         (Reflect.ownKeys(this.state) as Array<keyof State>).forEach(key => {
             if (this.state[key] !== undefined) {
-                delete this.state[key];
+                this.state[key] = undefined!;
             }
         });
     }

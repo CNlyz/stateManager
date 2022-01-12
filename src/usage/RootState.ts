@@ -1,11 +1,11 @@
-import BaseRootState from './BaseRootState';
+import { BaseState } from '../index';
 import { getUseStateManager, getConnector } from '../index';
 
 class Person {
     name: string = '';
 }
 
-export default class RootState extends BaseRootState<Person> {
+export default class RootState extends BaseState<Person> {
     protected initialState(): Person {
         return new Person();
     }

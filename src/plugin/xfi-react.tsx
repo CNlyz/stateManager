@@ -33,13 +33,19 @@ export function getConnector<RootState>(rootState: RootState) {
 
 // only for function component
 export function getUseStateManager<RootState extends Object>(rootState: RootState) {
-    return function <T extends Object>(getState: (rootState: RootState) => T) {
+    function useStateManager(): RootState;
+    function useStateManager<T extends Object>(getState: (rootState: RootState) => T): T & { rootState: RootState };
+    function useStateManager(getState?: any) {
+        if (getState === undefined) {
+            return rootState;
+        }
         const fn = () => getState(rootState);
         const [, update] = useState(Symbol(0));
         useEffect(() => {
             const removeDeps = collectDeps(fn, () => update(Symbol(0)));
             return () => removeDeps();
         }, []);
-        return fn();
+        return { ...fn(), rootState };
     };
+    return useStateManager;
 }
