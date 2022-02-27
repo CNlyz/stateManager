@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "release": "tsc && npm publish"
+    "release": "rm -rf ./dist && tsc && npm publish"
   },
   "repository": {
     "type": "git",
