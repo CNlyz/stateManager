@@ -1,6 +1,6 @@
 {
   "name": "xfi",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A LightWeight JavaScript State Manager",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

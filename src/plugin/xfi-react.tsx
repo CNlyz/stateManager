@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { collectDeps } from '../observe';
+import collectDeps  from './collectDependencies';
 import { ComponentType } from '../interface';
 
 // for class component or function component

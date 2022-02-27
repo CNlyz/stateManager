@@ -1,18 +1,18 @@
 import { Updater, Key } from './interface';
 
-let currentUpdater: Updater | null = null;
+let _currentUpdater: Updater | null = null;
 
-const updaterList = new Set<Updater>();
+const _updaterList = new Set<Updater>();
 
-let updating = false;
+let _updating = false;
 
-let shouldRemoveDeps = false;
+let _shouldRemoveDeps = false;
 
 export function observe<T extends Object>(data: T) {
     const updaterMap = new Map<Key, Set<Updater>>();
 
     function getUpdaters(key: Key) {
-        if (currentUpdater === null) {
+        if (_currentUpdater === null) {
             return;
         }
         let deps = updaterMap.get(key);
@@ -20,7 +20,7 @@ export function observe<T extends Object>(data: T) {
             deps = new Set();
             updaterMap.set(key, deps);
         }
-        deps.add(currentUpdater);
+        deps.add(_currentUpdater);
     }
 
     function batchUpdate(key: Key) {
@@ -28,31 +28,31 @@ export function observe<T extends Object>(data: T) {
         if (deps === undefined) {
             return;
         }
-        deps.forEach(dep => updaterList.add(dep));
+        deps.forEach(dep => _updaterList.add(dep));
         Promise.resolve().then(() => {
-            if (!updating) {
-                updating = true;
-                updaterList.forEach(dep => dep());
-                updaterList.clear();
+            if (!_updating) {
+                _updating = true;
+                _updaterList.forEach(dep => dep());
+                _updaterList.clear();
             }
-        }).then(() => updating = false);
+        }).then(() => _updating = false);
     }
 
     function removeDeps(key: Key) {
-        if (currentUpdater === null) {
+        if (_currentUpdater === null) {
             return;
         }
         const deps = updaterMap.get(key);
         if (deps === undefined) {
             return;
         }
-        deps.delete(currentUpdater);
-        updaterList.delete(currentUpdater);
+        deps.delete(_currentUpdater);
+        _updaterList.delete(_currentUpdater);
     };
 
     return new Proxy(data, {
         get(target: T, key: Key, receiver: any) {
-            if (shouldRemoveDeps) {
+            if (_shouldRemoveDeps) {
                 removeDeps(key);
             } else {
                 getUpdaters(key);
@@ -66,17 +66,20 @@ export function observe<T extends Object>(data: T) {
     });
 }
 
-export function collectDeps<T extends Object>(getUpdaterMapKeys: () => T, updater: () => void) {
-    currentUpdater = updater;
-    shouldRemoveDeps = false;
-    getUpdaterMapKeys();
-    currentUpdater = null;
-
-    const removeDeps = () => {
-        currentUpdater = updater;
-        shouldRemoveDeps = true;
-        getUpdaterMapKeys();
-        currentUpdater = null;
+/**
+ * give currentUpdater a new updater or give it null
+ */
+export function setCurrentUpdater(updater: Updater | null) {
+    if (updater === null || typeof updater === 'function') {
+        return _currentUpdater = updater;
     }
-    return removeDeps;
+    throw new Error(`Updater must be a function or null, but get ${typeof updater}`);
+}
+
+/**
+ * tell xfi to collect deps or remove deps
+ * if false, xfi will collect dependencies, or to remove them
+ */
+export function tellXfiWhetherRemoveDeps(shouldRemoveDeps: boolean) {
+    _shouldRemoveDeps = shouldRemoveDeps;
 }
