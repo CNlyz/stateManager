@@ -3,3 +3,4 @@ src
 *.lock
 tsconfig.json
 index.ts
+CHANGELOG.md
