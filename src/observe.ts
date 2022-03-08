@@ -48,7 +48,7 @@ export function observe<T extends Object>(data: T) {
         }
         deps.delete(_currentUpdater);
         _updaterList.delete(_currentUpdater);
-    };
+    }
 
     return new Proxy(data, {
         get(target: T, key: Key, receiver: any) {

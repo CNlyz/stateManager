@@ -1,6 +1,7 @@
 # 0.0.3
 -   copy interface.d.ts before release
 -   ignore changelog.md for realease
+-   remove the useless ';'
 
 # 0.0.2
 -   export `setCurrentUpdater` & `tellXfiWhetherRemoveDeps`
