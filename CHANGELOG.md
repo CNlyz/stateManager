@@ -1,3 +1,6 @@
+# 0.0.4
+-   fix the errors in 0.0.3
+
 # 0.0.3
 -   copy interface.d.ts before release
 -   ignore changelog.md for realease
