@@ -31,6 +31,33 @@ export function getConnector<RootState>(rootState: RootState) {
     };
 }
 
+export function getInject<RootState>(rootState: RootState) {
+    return function<InjectProps>(getState: (rootState: RootState) => InjectProps) {
+        return function<ComponentProps, OuterProps = Omit<ComponentProps, keyof InjectProps>>(Component: ComponentType<ComponentProps>): ComponentType<OuterProps> {
+            return class extends React.Component<OuterProps> {
+                private _removeDeps?: () => void = undefined;
+
+                private trigger = () => {
+                    this.forceUpdate();
+                }
+    
+                componentWillMount() {
+                    this._removeDeps = collectDeps(() => getState(rootState), this.trigger);
+                }
+    
+                componentWillUnmount() {
+                    this._removeDeps?.();
+                }
+
+                render() {
+                    const props = {...getState(rootState), ...this.props};
+                    return <Component {...props as any} />
+                }
+            }
+        }
+    }
+}
+
 // only for function component
 export function getUseStateManager<RootState extends Object>(rootState: RootState) {
     function useStateManager(): RootState;

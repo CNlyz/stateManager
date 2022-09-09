@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from './RootState';
+import { connect, inject } from './RootState';
 
 interface Props {
     name: string;
@@ -7,13 +7,18 @@ interface Props {
     height: number;
 }
 
-class PersonInfo extends React.PureComponent<Props> {
+type A = Omit<Props, keyof { name: string }>;
+
+@inject(rootState => ({
+    name: rootState.state.name
+}))
+export default class PersonInfo extends React.PureComponent<Props> {
     render() {
         return (<div />);
     }
 }
 
-export default connect(root => ({
-    name: root.state.name,
-    height: 0,
-}), PersonInfo);
+// export default connect(root => ({
+//     name: root.state.name,
+//     height: 0,
+// }), PersonInfo);

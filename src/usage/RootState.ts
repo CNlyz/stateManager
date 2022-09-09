@@ -1,5 +1,5 @@
 import { BaseState } from '../index';
-import { getUseStateManager, getConnector } from '../index';
+import { getUseStateManager, getConnector, getInject } from '../index';
 
 class Person {
     name: string = '';
@@ -16,3 +16,5 @@ const rootState = new RootState();
 export const useStateManager = getUseStateManager(rootState);
 
 export const connect = getConnector(rootState);
+
+export const inject = getInject(rootState);
